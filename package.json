@@ -1,0 +1,31 @@
+{
+  "name": "arc-scheduler",
+  "version": "1.0.0",
+  "description": "A thin task scheduler, for easily managing recurrent or single fire tasks.",
+  "main": "/src/index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anyuzer/arc-scheduler.git"
+  },
+  "keywords": [
+    "scheduler",
+    "cron",
+    "arc"
+  ],
+  "author": "Ian Reid",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/anyuzer/arc-scheduler/issues"
+  },
+  "homepage": "https://github.com/anyuzer/arc-scheduler#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "arc-date": "^2.1.3",
+    "arc-events": "^2.0.1"
+  }
+}
