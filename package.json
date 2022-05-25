@@ -1,6 +1,6 @@
 {
   "name": "arc-scheduler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A thin task scheduler, for easily managing recurrent or single fire tasks.",
   "main": "./src/index.js",
   "scripts": {
