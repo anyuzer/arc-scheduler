@@ -1,5 +1,3 @@
-const ArcDate = require('arc-date');
-
 class TaskConfig {
     constructor(_Scheduler, _id, _lastRunTime) {
         this.Scheduler = _Scheduler;
@@ -158,4 +156,4 @@ class TaskConfig {
     }
 }
 
-module.exports = TaskConfig;
+export default TaskConfig;

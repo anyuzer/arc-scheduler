@@ -1,5 +1,6 @@
-const ArcDate = require('arc-date');
-const ArcScheduler = require('../src/index');
+import {jest} from '@jest/globals';
+import ArcDate from "arc-date";
+import ArcScheduler from "../src/index.js";
 
 jest.setTimeout(25000);
 

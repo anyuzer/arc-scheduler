@@ -1,8 +1,7 @@
-const ArcDate = require('arc-date');
-const ArcScheduler = require('../src/index');
+import {jest} from '@jest/globals';
+import ArcScheduler from "../src/index.js";
 
 jest.setTimeout(25000);
-
 
 const sleep = async (_for) => {
     return new Promise(resolve => setTimeout(resolve, _for));
@@ -20,22 +19,18 @@ describe('ArcScheduler, running jobs in an unhealthy environment',()=>{
     });
 
     it('When queue depth is hit, additional jobs should not be added and a warning should be emitted',async ()=>{
-        expect.assertions(9);
+        expect.assertions(6);
 
         //Create a new scheduler
         TestScheduler = new ArcScheduler();
         TestScheduler.setQueueConfig(true, 5);
 
+        let increment = 0;
         TestScheduler.on(ArcScheduler.WARNING_QUEUE_DEPTH, (_depthPercent) => {
-            //This will run 7 times (once for hitting 80%, 4 out of 5. Once for hitting 100%, and then 5 times for the other 7 jobs that complete)
+            //This will run 2 times (before limit is hit, while we're adding jobs), and then an additional 4 times, once each time a job completes while our simulation is running (5th job ends at 126 simulation seconds, and we're only simulating 120 seconds)
+            increment++;
             expect(_depthPercent).toBeGreaterThanOrEqual(0.7)
         });
-
-        //Now, we should receive a warning when queueLimit is hit
-        TestScheduler.on(ArcScheduler.WARNING_QUEUE_LIMIT, (_depthPercent) => {
-            //This should run twice (as we debounce the spam)
-            expect(_depthPercent).toBe(1);
-        })
 
         //Get a new task
         TestTask = TestScheduler.getNewTask('testTask1');
@@ -45,7 +40,7 @@ describe('ArcScheduler, running jobs in an unhealthy environment',()=>{
 
         //But force the task to 25 simulated seconds to resolve
         TestTask.setJob(async (_Date) => {
-            return sleep(250); //In this case, we would expect 8 jobs to successfully run
+            return sleep(250); //In this case, we would expect 5 jobs to successfully run (first job on second 1, 26, 51, 76, 101).
         });
 
         //Schedule it

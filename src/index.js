@@ -1,7 +1,6 @@
-const ArcEvents = require('arc-events');
-const ArcDate = require('arc-date');
-
-const TaskConfig = require('./TaskConfig');
+import ArcEvents from "arc-events";
+import ArcDate from "arc-date";
+import TaskConfig from './TaskConfig.js'
 
 class ArcScheduler {
     static get INTERVAL_SECONDS_1(){ return 's1'; }
@@ -404,10 +403,8 @@ class ArcScheduler {
             //So, if the task has been run AND our current time is less than the next runnable time
             if(lastRunTime && _now < task.getNextRunnableTime()) {
                 //If there hasn't been enough time since last run, skip.
-                // console.log('Hit here???', _now, task.getNextRunnableTime());
                 continue;
             }
-            // console.log('!!!');
 
             //So, if month of year is set AND those months DO NOT include our current month, skip
             if(task.getMonthsOfYear() && !task.getMonthsOfYear().includes(+nowFormat.format('n', this.timezone))) {
@@ -511,4 +508,4 @@ class ArcScheduler {
     }
 }
 
-module.exports = ArcScheduler;
+export default ArcScheduler;
